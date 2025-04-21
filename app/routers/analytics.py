@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, between
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -15,7 +15,7 @@ analytics_router = APIRouter(prefix="/analytics")
 
 # Pydantic response models
 class TemperatureTrend(BaseModel):
-    date: str
+    date: date
     avg_temp: float
     max_temp: float
     min_temp: float
