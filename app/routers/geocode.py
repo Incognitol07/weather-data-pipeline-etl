@@ -46,7 +46,7 @@ async def get_geographical_coordinates(
             "q": q,
             "limit": limit
         }
-        data = fetch_data_from_api("http://api.openweathermap.org/geo/1.0/direct", params)
+        data = await fetch_data_from_api("http://api.openweathermap.org/geo/1.0/direct", params)
         new_location = Location(
             name = data[0]["name"],
             lat = data[0]["lat"],
@@ -90,7 +90,7 @@ async def get_location_by_coordinates(
             "lon": lon
         }
         logger.info(f"Fetched location from external api")
-        data = fetch_data_from_api("http://api.openweathermap.org/geo/1.0/reverse", params)
+        data = await fetch_data_from_api("http://api.openweathermap.org/geo/1.0/reverse", params)
         for entry in data:
             new_location = Location(
                 name = entry["name"],
