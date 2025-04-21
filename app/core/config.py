@@ -20,7 +20,6 @@ class Settings(BaseSettings):
     # Scheduler intervals & retention
     CURRENT_WEATHER_INTERVAL_HOURS: int = 1
     FORECAST_INTERVAL_HOURS: int = 3
-    RETENTION_DAYS: int = 7
 
     # CORS & hosts
     ALLOWED_HOSTS: list[str] = ["*"]
