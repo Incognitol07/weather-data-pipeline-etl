@@ -29,8 +29,8 @@ async def get_geographical_coordinates(
     Get geographical coordinates by city name, state code, and country code.
     """
     try:
-        result = await db.execute(select(Location).filter(Location.name == city_name.lower()))
-        location = result.scalars().first()
+        result = await db.execute(select(Location).filter(Location.name.lower() == city_name.strip().lower()))
+        location = result.scalar_one_or_none()
         
         if location:
             logger.info(f"Returned location {city_name} from database")
@@ -57,7 +57,7 @@ async def get_geographical_coordinates(
         db.add(new_location)
         await db.commit()
         await db.refresh(new_location)
-        
+        logger.info(f"Fetched location {city_name} from external api")
         return new_location
     except SQLAlchemyError as e:
         logger.error(f"Unexpected error occurred during API call: {e}")
