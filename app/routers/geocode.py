@@ -46,19 +46,19 @@ async def get_geographical_coordinates(
             "q": q,
             "limit": limit
         }
-        data = await fetch_data_from_api("http://api.openweathermap.org/geo/1.0/direct", params)
-        new_location = Location(
-            name = data[0]["name"],
-            lat = data[0]["lat"],
-            lon = data[0]["lon"],
-            country = data[0]["country"],
-            state = data[0].get("state")
-        )
-        db.add(new_location)
-        await db.commit()
-        await db.refresh(new_location)
-        logger.info(f"Fetched location {city_name} from external api")
-        return new_location
+        # data = await fetch_data_from_api("http://api.openweathermap.org/geo/1.0/direct", params)
+        # new_location = Location(
+        #     name = data[0]["name"],
+        #     lat = data[0]["lat"],
+        #     lon = data[0]["lon"],
+        #     country = data[0]["country"],
+        #     state = data[0].get("state")
+        # )
+        # db.add(new_location)
+        # await db.commit()
+        # await db.refresh(new_location)
+        # logger.info(f"Fetched location {city_name} from external api")
+        # return new_location
     except SQLAlchemyError as e:
         logger.error(f"Unexpected error occurred during API call: {e}")
         raise HTTPException(
