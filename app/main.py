@@ -21,13 +21,13 @@ async def lifespan(app: FastAPI):
     scheduler.add_job(
         fetch_current_weather_job,
         'interval',
-        hours=1,
+        hours=settings.CURRENT_WEATHER_INTERVAL_HOURS,
         misfire_grace_time=300
     )
     scheduler.add_job(
         fetch_forecast_job,
         'interval',
-        hours=3,
+        hours=settings.FORECAST_INTERVAL_HOURS,
         misfire_grace_time=300
     )
     scheduler.start()

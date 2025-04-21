@@ -8,17 +8,21 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     DEBUG: bool = ENVIRONMENT == "development"
 
-    # This one really should come from env for security!
+    # Database URL (via .env)
     DATABASE_URL: str
 
     # JWT and authentication settings
     JWT_SECRET_KEY: str
 
-    # For simple APIs you might default to a single key,
-    # but still allow override in production.
+    # OpenWeather API key (via .env)
     WEATHER_API_KEY: str
 
-    # Other security settings
+    # Scheduler intervals & retention
+    CURRENT_WEATHER_INTERVAL_HOURS: int = 1
+    FORECAST_INTERVAL_HOURS: int = 3
+    RETENTION_DAYS: int = 7
+
+    # CORS & hosts
     ALLOWED_HOSTS: list[str] = ["*"]
     CORS_ORIGINS: list[str] = [
         "http://localhost:3000",
@@ -26,9 +30,7 @@ class Settings(BaseSettings):
     ]
 
     class Config:
-        # Automatically read from a .env file in your project root
         env_file = ".env"
         env_file_encoding = "utf-8"
 
-# Instantiate settings
 settings = Settings()

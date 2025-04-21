@@ -1,10 +1,18 @@
 # app/models/weather_data.py
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
+
+from sqlalchemy import (
+    Column, Integer, String, Float, ForeignKey, DateTime,
+    Index, UniqueConstraint
+)
 from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 class WeatherData(Base):
     __tablename__ = "weather_data"
+    __table_args__ = (
+        Index('ix_weather_data_city_time', 'city_id', 'data_calculation_time'),
+        UniqueConstraint('city_id', 'data_calculation_time', name='uq_weather_data_city_time'),
+    )
 
     id = Column(Integer, primary_key=True, index=True)
     weather_main = Column(String)
@@ -30,5 +38,4 @@ class WeatherData(Base):
     sunset_time = Column(DateTime)
     city_id = Column(Integer, ForeignKey("locations.id"))
 
-    # Add back_populates
     city = relationship("Location", back_populates="weather_data")
