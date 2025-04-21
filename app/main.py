@@ -6,7 +6,7 @@ from app.background_tasks.jobs.fetch_current_weather import fetch_current_weathe
 from app.background_tasks.jobs.fetch_weather_forecast import fetch_forecast_job
 from app.core.database import Base, engine
 from app.core.config import settings
-from app.routers import weather_router, geocode_router, trigger_router
+from app.routers import weather_router, geocode_router, analytics_router
 from app.utils.logging_config import logger
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -53,7 +53,7 @@ app.add_middleware(
 
 app.include_router(weather_router)
 app.include_router(geocode_router)
-app.include_router(trigger_router)
+app.include_router(analytics_router)
 
 @app.get("/")
 async def health_check():
