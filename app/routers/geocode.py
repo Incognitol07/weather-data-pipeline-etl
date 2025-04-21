@@ -29,7 +29,7 @@ async def get_geographical_coordinates(
     Get geographical coordinates by city name, state code, and country code.
     """
     try:
-        result = await db.execute(select(Location).filter(Location.name == city_name.strip().title()))
+        result = await db.execute(select(Location).filter(Location.name == city_name))
         location = result.scalar_one_or_none()
         
         if location:
